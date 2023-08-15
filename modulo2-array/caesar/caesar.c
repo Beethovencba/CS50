@@ -7,19 +7,19 @@
 void criptografia(int key)
 {
     string texto = get_string("plaintext: ");
-    int calculo;
+    int calculo, criptografia;
 
     for (int i = 0, c = strlen(texto); i < c; i++)
     {
 
         if (isalpha(texto[i]) && isupper(texto[i]))
         {
-            int criptografia = (int)texto[i] - 65 + key;
+            criptografia = (int)texto[i] - 65 + key;
             calculo = criptografia % 26 + 65;
         }
         else if (isalpha(texto[i]) && islower(texto[i]))
         {
-            int criptografia = (int)texto[i] - 97 + key;
+            criptografia = (int)texto[i] - 97 + key;
             calculo = criptografia % 26 + 97;
         }
         else

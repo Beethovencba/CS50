@@ -16,3 +16,5 @@
   - Modulo 9: Flask;
  
  - Existe mais dois módulos, modulo 0 e 10. Porem o primeiro é na plataforma scrat e o segundo uma discussão sobre a ética.
+
+ ps: link para instalar a biblioteca CS50 (cs50.h) https://github.com/cs50/libcs50;
