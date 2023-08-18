@@ -1,2 +1,6 @@
+Objetivo: Escalar cada valor de amostra por um determinado fator tem o efeito de alterar o volume do áudio. Multiplicar cada valor de amostra por 2,0, por exemplo, terá o efeito de dobrar o volume do áudio de origem. Multiplicar cada amostra por 0,5, entretanto, terá o efeito de cortar o volume pela metade.
+
+        Contexto: Os arquivos WAV são um formato de arquivo comum para representar áudio. Os arquivos WAV armazenam áudio como uma sequência de “amostras”: números que representam o valor de algum sinal de áudio em um determinado momento. Os arquivos WAV começam com um “cabeçalho” de 44 bytes que contém informações sobre o próprio arquivo, incluindo o tamanho do arquivo, o número de amostras por segundo e o tamanho de cada amostra. Após o cabeçalho, o arquivo WAV contém uma sequência de amostras, cada uma com um único inteiro de 2 bytes (16 bits) representando o sinal de áudio em um determinado momento.
+
 compilação: cc volume.c -o volume
 execução: ./volume input.wav output.wav 2.0 \\ ou 1.0 ou 0.5 etc.
