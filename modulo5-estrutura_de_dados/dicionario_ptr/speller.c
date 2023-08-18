@@ -69,6 +69,9 @@ int main(int argc, char *argv[])
 
     // Spell-check each word in text
     wchar_t c;
+
+    printf("passei por aqui");
+    
     while (fread(&c, sizeof(wchar_t), 1, file))
     {
         // Allow only alphabetical characters and apostrophes
@@ -144,7 +147,7 @@ int main(int argc, char *argv[])
     getrusage(RUSAGE_SELF, &before);
     unsigned int n = size();
     getrusage(RUSAGE_SELF, &after);
-
+    printf("vai toma no cu");
     // Calculate time to determine dictionary's size
     time_size = calculate(&before, &after);
 

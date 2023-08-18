@@ -17,7 +17,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 27;
+#define N 27
 unsigned int size_library;
 
 // Hash table
@@ -68,21 +68,22 @@ node *table[N];
 //         return c;
 //     }
 // }
-// Returns true if word is in dictionary, else false
+
 // Returns true if word is in dictionary, else false
 bool check(const wchar_t *word)
 {
     int i;
     i = hash(word);
-    if (i > 25)
+    printf("%i-", i);
+	if (i > 25)
     {
         i = 26;
     }
-    // printf("%i ", i);
+    //printf("%i ", i);
 
     for (node *tmp = table[i]; tmp != NULL; tmp = tmp->next)
     {
-        if (strcasecmp(word, tmp->word) == 0)
+        if (wcscmp(word, tmp->word) == 0)
         {
             return true;
         }
@@ -95,17 +96,20 @@ bool check(const wchar_t *word)
 unsigned int hash(const wchar_t *word)
 {
     wchar_t   palavra[LENGTH + 1];
-    int    hash;
-
-    strcpy(palavra, word);
-    palavra[0] = remove_acento(palavra[0]);
-    hash = tolower(palavra[0]) - 97;
+    int  hash;
+    
+	wcscpy(palavra, word);
+	hash = tolower(palavra[0]) - 97;
+	if (hash > 25)
+	{
+		return 26;
+	}
 
     return hash;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
-bool load(const wchar_t *dictionary)
+bool load(const char *dictionary)
 {
     FILE *dicionario = NULL;
     dicionario = fopen(dictionary, "r");
@@ -122,21 +126,20 @@ bool load(const wchar_t *dictionary)
     int     idx, i = 1, x = 0;
     wchar_t    palavra[LENGTH + 1];
 
-    while (fscanf(dicionario, "%s", palavra) != EOF)
+    while (fwscanf(dicionario, L"%ls", palavra) != EOF)
     {
         node *n = malloc(sizeof(node));
         if (n == NULL)
         {
             printf("Falha na alocação de memória.\n");
-            free(table);
-            return 1; // Retorno de erro
+            return false;
         }
 
-        strcpy(n->word, palavra);
+        wcscpy(n->word, palavra);
         n->next = NULL;
 
         idx = hash(n->word);
-        printf("%i, ", idx);
+       // printf("%i, ", idx);
         if (idx == i)
         {
             table[idx] = NULL;
