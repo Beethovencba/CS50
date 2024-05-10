@@ -41,24 +41,33 @@ def lookup(symbol):
     # Contact API
     try:
         api_key = os.environ.get("API_KEY")
-        url = f"https://cloud.iexapis.com/stable/stock/{urllib.parse.quote_plus(symbol)}/quote?token={api_key}"
+        # url = f"https://cloud.iexapis.com/stable/stock/{urllib.parse.quote_plus(symbol)}/quote?token={api_key}"
+        url = f"https://brapi.dev/api/quote/{urllib.parse.quote_plus(symbol)}?token={api_key}"
+
+        print(url)
         response = requests.get(url)
         response.raise_for_status()
-    except requests.RequestException:
+        data = response.json()
+        print(response.json())
+    except requests.RequestException as e:
+        print(f"Request Exception: {e}")
         return None
 
     # Parse response
+    
     try:
-        quote = response.json()
+        quote = data["results"][0]  # Accessing the first result
+        print(quote)
         return {
-            "name": quote["companyName"],
-            "price": float(quote["latestPrice"]),
+            "name": quote["longName"],
+            "price": float(quote["regularMarketPrice"]),
             "symbol": quote["symbol"]
         }
-    except (KeyError, TypeError, ValueError):
+    except (KeyError, TypeError, ValueError) as e:
+        print(f"Error parsing response: {e}")
         return None
 
 
 def usd(value):
     """Format value as USD."""
-    return f"${value:,.2f}"
+    return f"R${value:,.2f}"
